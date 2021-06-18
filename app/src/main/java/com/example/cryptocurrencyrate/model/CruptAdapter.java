@@ -2,6 +2,7 @@ package com.example.cryptocurrencyrate.model;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,9 +31,16 @@ public class CruptAdapter extends RecyclerView.Adapter<CruptAdapter.CruptViewHol
 
             Intent intent = new Intent(context, Cryptocurrency_Data.class);
 
+            intent.putExtra("rank", cruptList.getByIndex(index).getRank());
+            intent.putExtra("symbol", cruptList.getByIndex(index).getSymbol());
             intent.putExtra("name", cruptList.getByIndex(index).getName());
             intent.putExtra("id", cruptList.getByIndex(index).getId());
-            intent.putExtra("symbol", cruptList.getByIndex(index).getSymbol());
+            intent.putExtra("priceUsd", cruptList.getByIndex(index).getPriceUsd());
+            intent.putExtra("supply", cruptList.getByIndex(index).getSupply());
+            intent.putExtra("maxSupply", cruptList.getByIndex(index).getMaxSupply());
+            intent.putExtra("volumeUsd24Hr", cruptList.getByIndex(index).getVolumeUsd24Hr());
+            intent.putExtra("changePercent24Hr", cruptList.getByIndex(index).getChangePercent24Hr());
+            intent.putExtra("vwap24Hr", cruptList.getByIndex(index).getVwap24Hr());
 
             context.startActivity(intent);
         }
@@ -57,11 +65,17 @@ public class CruptAdapter extends RecyclerView.Adapter<CruptAdapter.CruptViewHol
 
         Crupt crupt = cruptList.getByIndex(position);
 
-        holder.rank.setText(crupt.getRank());
+        holder.rank.setText(crupt.getRank() + "|");
         holder.symbol.setText(crupt.getSymbol());
         holder.name.setText(crupt.getName());
-        holder.priceUSD.setText(crupt.getPriceUsd());
-        holder.changePrice24H.setText(crupt.getChangePercent24Hr());
+        holder.priceUSD.setText("USD " + crupt.getPriceUsd());
+        holder.changePrice24H.setText("24H   "+ crupt.getChangePercent24Hr());
+        if (Double.parseDouble(crupt.getChangePercent24Hr()) > 0) {
+            holder.changePrice24H.setTextColor(Color.GREEN);
+        }
+        else {
+            holder.changePrice24H.setTextColor(Color.RED);
+        }
     }
 
     @Override
