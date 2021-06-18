@@ -1,30 +1,34 @@
 package com.example.cryptocurrencyrate.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CruptsList {
 
-    private List<Crupt> crupts;
+    @SerializedName("data")
+    @Expose
+    public List<Crupt> crupts = null;
 
-    public CruptsList(List<Crupt> crupts) {
-        this.crupts = crupts;
-    }
 
-    public List<Crupt> getCrupts() {
+    public List<Crupt> getCrupts()
+    {
         return crupts;
     }
 
-    public void setCrupts(List<Crupt> crupts) {
-        this.crupts = crupts;
+    public void setCrupts(List<Crupt> cruptsList)
+    {
+        crupts = cruptsList;
     }
 
-    public void addCrupts(Crupt crupt){ crupts.add(crupt); }
+    public Crupt getByIndex(int index){
+        return crupts.get(index);
+    }
 
     public int getSize(){
         return crupts.size();
-    }
-
-    public Crupt getByIndex(int i){
-        return crupts.get(i);
     }
 }

@@ -1,17 +1,16 @@
 package com.example.cryptocurrencyrate;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.widget.Toast;
-
-import com.example.cryptocurrencyrate.model.Crupt;
 import com.example.cryptocurrencyrate.model.CruptAdapter;
 import com.example.cryptocurrencyrate.model.CruptsList;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,6 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
+    private CruptsList cruptsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +49,9 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                CruptsList cruptsList = response.body();
-                CruptAdapter cruptAdapter = new CruptAdapter(MainActivity.this, cruptsList);
+                cruptsList = response.body();
+
+                CruptAdapter cruptAdapter = new CruptAdapter(MainActivity.this, cruptsList, recyclerView);
                 recyclerView.setAdapter(cruptAdapter);
             }
 
